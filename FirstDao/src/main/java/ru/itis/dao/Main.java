@@ -41,7 +41,7 @@ public class Main {
             System.out.println(product);
         }
 
-        //delete by id
+        //delete by idx
         //productDao.delete(2L);
 
         productDao.update(1L,new Product("Cat food","Pet","UK",560));
