@@ -14,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Sign Up</title>
+  <title>Sign In</title>
 
 
 
@@ -50,7 +50,7 @@
 
 <main class="form-signin">
   <form action="/sign-in" method="post">
-    <img class="mb-4" src="../img/anime.png" alt="" width="200" height="200">
+    <img class="mb-4" src="../img/parrot.jpg" alt="" width="200" height="200">
     <h1 class="h3 mb-3 fw-normal"><%
       if(null!=request.getAttribute("errorMessage"))
       {

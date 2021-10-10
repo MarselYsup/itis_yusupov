@@ -1,4 +1,6 @@
+<%@ page import="ru.itis.sign.models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,19 +9,19 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Sign Up</title>
+    <title>Profile</title>
 
 
 
 
 
 
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <style>
 
         p{
-            font-size: 8.125rem;
+            font-size: 5.125rem;
             text-anchor: middle;
             color:#FFD700;
 
@@ -43,7 +45,20 @@
 
 </head>
 <body class="text-center">
-    <p>Welcome,<%=request.getAttribute("User")%>!</p>
+    <p>${user.getUsername()}</p>
+    <img class="avatar" alt="IMAGE" src=" <c:choose>
+    <c:when test = "${path==null}">../img/no_avatar.png</c:when>
+    <c:otherwise>${path}</c:otherwise>
+    </c:choose>
+    "
+    width="300" height="300" />
+    <div class="mb-3">
+    <form  action="/profile" method="post" enctype="multipart/form-data">
+        <input class="form-control" type="file" id="formFile"name="avatar" accept="image/*" required>
+        <input type="submit" value="File Upload">
+    </form>
+    </div>
+
 
 
 

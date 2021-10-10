@@ -1,24 +1,26 @@
 package ru.itis.sign.servlets;
 
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import ru.itis.sign.database.CrudRepository;
 import ru.itis.sign.database.UserRepository;
 import ru.itis.sign.models.User;
-
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @WebServlet("/sign-up")
 public class SignUp extends HttpServlet {
+    private UserRepository userDao;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        userDao = (UserRepository) config.getServletContext().getAttribute("usersRepository");
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,35 +29,36 @@ public class SignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         System.out.println(username+" "+password);
-        //Connecting with DB
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("190202Marsel");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/java_web");
-        CrudRepository<User,Long> userDao = new UserRepository(dataSource);
         List<String> userList = userDao.findAllNames();
-
+        //добавить проверку пароля
         if(userList.contains(username)) {
 
             request.setAttribute("errorMessageNames","Current username already registered!");
             request.getRequestDispatcher("jsp/signup.jsp").forward(request,response);
         }
-        else if(password.length()<5||!isValidUsername(username)) {
+        else if(!isValidPassword(password)||!isValidUsername(username)) {
 
             request.setAttribute("errorMessageInvalid","Invalid username or password!");
             request.getRequestDispatcher("jsp/signup.jsp").forward(request,response);
         }
         else {
-            userDao.save(new User(username,password));
-            request.getSession().setAttribute("User", username);
+            User user = userDao.save(new User(username,password));
+            request.getSession().setAttribute("User", user);
             response.sendRedirect("/profile");
         }
 
 
+    }
+    private static boolean isValidPassword(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+        Pattern p = Pattern.compile(regex);
+        if(password==null) return false;
+        Matcher m = p.matcher(password);
+        return m.matches();
     }
     private static boolean isValidUsername(String name)
     {
