@@ -21,7 +21,9 @@ public class AvatarRepositoryImpl implements AvatarRepository {
     }
     private final static String SELECT_BY_USER_ID = "Select * from avatars where id_user = ?";
     private final static String INSERT = "Insert into avatars(original_name, storage_name," +
-            " size, type, id_user) VALUES(?,?,?,?,?) ";
+            " size, type, id_user) VALUES(?,?,?,?,?) on conflict (id_user) do update  " +
+            "set original_name = EXCLUDED.original_name, storage_name = EXCLUDED.storage_name, size = EXCLUDED.size," +
+            "type = EXCLUDED.type";
     private final static String SELECT_BY_ID = "Select * from avatars where id = ?";
     private final static String SELECT_ALL = "Select * from avatars";
     private RowMapper<Avatar> rowMapper = (resultSet, i) -> {

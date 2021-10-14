@@ -44,7 +44,7 @@
 
 <main class="form-signin">
   <form action="/sign-up" method="post">
-    <img class="mb-4" src="../img/parrot.jpg" alt="" width="200" height="200">
+    <img class="mb-4" src="../img/anime.png" alt="" width="200" height="200">
     <h1 class="h3 mb-3 fw-normal"><%
       if(null!=request.getAttribute("errorMessageNames"))
       {

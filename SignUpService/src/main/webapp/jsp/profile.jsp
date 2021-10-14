@@ -19,7 +19,12 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
+        img{
+            object-fit: cover;
+            border-radius:50%;
+            width: 150px;
+            height: 150px;
+        }
         p{
             font-size: 5.125rem;
             text-anchor: middle;
