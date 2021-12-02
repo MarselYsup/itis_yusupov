@@ -31,7 +31,7 @@ public class AuthenticationFilter implements Filter {
         //Проверка на админа
         boolean isAdmin = false;
         if (session!=null) {
-             isAdmin = session.getAttribute("isAdmin") != null;
+            isAdmin = session.getAttribute("isAdmin") != null;
         }
         if(!isAdmin&&(request.getRequestURI().startsWith(request.getContextPath()+"/add-anime")
                 ||request.getRequestURI().startsWith(request.getContextPath()+"/add-studio"))) {

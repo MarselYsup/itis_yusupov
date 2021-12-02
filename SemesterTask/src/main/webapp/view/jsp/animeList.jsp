@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Home page</title>
+    <title>Anime List</title>
 
 
     <style>
@@ -54,7 +54,6 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="<c:url value="/anime?animeId=${anime.getAnimeId()}"/>" class="btn btn-sm btn-outline-secondary">Смотреть</a>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
                             </div>
                             <small class="text-dark">Рейтинг аниме: ${anime.getRating()}</small>
                         </div>
